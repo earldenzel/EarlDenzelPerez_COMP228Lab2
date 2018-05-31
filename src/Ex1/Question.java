@@ -20,6 +20,10 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
+    public String getCorrectAnswerString(){
+        return options[correctAnswer];
+    }
+
     //getters
     public String getQuestion() {
         return question;

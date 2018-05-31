@@ -33,27 +33,62 @@ return( "Very good!" );
 import java.security.SecureRandom;
 
 public class Test {
+    private Question[] questions;
+
+    public Test(Question[] questions) {
+        this.questions = questions;
+    }
+
+    private void startTest(){
+        for (Question question: questions) {
+            simulateQuestion();
+            char answer = inputAnswer();
+            generateMessage(question, checkAnswer(question, answer));
+        }
+    }
+
     private void simulateQuestion(){
         //show question here
 
     }
-    private Boolean checkAnswer(){
+    private Boolean checkAnswer(Question question, char answer){
         //check if answer is correct
 
         return true;
     }
-    //generates message depending on user action
-    private String generateMessage(Boolean isCorrect){
+
+    //generates message depending on whether user's action was right or wrong;
+    private String generateMessage(Question question, Boolean isCorrect){
         SecureRandom randomNumber = new SecureRandom();
         String message = "";
         switch (randomNumber.nextInt(4) )
         {
             case 0:
-                message = (isCorrect ? "Very good!" : "The correct answer was ");
+                message = (isCorrect ?
+                        "Very good!" :
+                        String.format("The correct answer was %s", question.getCorrectAnswerString()));
+                break;
+            case 1:
+                message = (isCorrect ?
+                        "Excellent!" :
+                        String.format("You should have answered %s", question.getCorrectAnswerString()));
+                break;
+            case 2:
+                message = (isCorrect ?
+                        "Well done!" :
+                        String.format("No. The answer was &s. Try again!", question.getCorrectAnswerString()));
+                break;
+            case 3:
+                message = (isCorrect ?
+                        "Skillful!" :
+                        String.format("You chose wrongly. Answer %s next time", question.getCorrectAnswerString()));
+                break;
+            default:
+                break;
         }
         return message;
-
     }
+
     private char inputAnswer(){
         return 'a';
     }
