@@ -42,19 +42,22 @@ public class Test {
 
     public void startTest(){
         for (Question question: questions) {
-            char answer = inputAnswer(simulateQuestion(question));
-            generateMessage(question, checkAnswer(question, answer));
+            inputAnswer(question);
         }
     }
 
-    private char inputAnswer(String questionString){
+    //show question and asks for user input, and terminates once the user answers correctly
+    private void inputAnswer(Question question){
+        Boolean userAnswersCorrectly;
         //set instructions on title
-        JFrame frame = new JFrame("Please input the character of the correct answer");
-
+        JFrame frame = new JFrame("Please input the letter of the correct answer");
         //show current question here
-        String answer = JOptionPane.showInputDialog(frame, questionString);
+        do {
+            String answer = JOptionPane.showInputDialog(frame, simulateQuestion(question));
+            userAnswersCorrectly = checkAnswer(question, answer);
+            generateMessage(userAnswersCorrectly);
 
-        return 'a';
+        } while (!userAnswersCorrectly);
     }
 
     //prints question in a string format
@@ -62,14 +65,13 @@ public class Test {
         return String.format("%s", question);
     }
 
-    private Boolean checkAnswer(Question question, char answer){
-        //check if answer is correct
-
-        return true;
+    //checks if answer is the same as the answer string
+    private Boolean checkAnswer(Question question, String answer){
+        return (answer.toLowerCase().equals(question.getCorrectAnswer()));
     }
 
     //generates message depending on whether user's action was right or wrong;
-    private String generateMessage(Question question, Boolean isCorrect){
+    private void generateMessage(Boolean isCorrect){
         SecureRandom randomNumber = new SecureRandom();
         String message = "";
         switch (randomNumber.nextInt(4) )
@@ -77,26 +79,26 @@ public class Test {
             case 0:
                 message = (isCorrect ?
                         "Very good!" :
-                        String.format("The correct answer was %s", question.getCorrectAnswerString()));
+                        "Try again!");
                 break;
             case 1:
                 message = (isCorrect ?
                         "Excellent!" :
-                        String.format("You should have answered %s", question.getCorrectAnswerString()));
+                        "You have another chance to answer correctly");
                 break;
             case 2:
                 message = (isCorrect ?
                         "Well done!" :
-                        String.format("No. The answer was &s. Try again!", question.getCorrectAnswerString()));
+                        "That was not the correct answer. Keep going!");
                 break;
             case 3:
                 message = (isCorrect ?
                         "Skillful!" :
-                        String.format("You chose wrongly. Answer %s next time", question.getCorrectAnswerString()));
+                        "Don't give up. You can do this");
                 break;
             default:
                 break;
         }
-        return message;
+        JOptionPane.showMessageDialog(null, message);
     }
 }

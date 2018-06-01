@@ -3,25 +3,18 @@ package Ex1;
 public class Question {
     private String question;
     private String[] options;
-    private int correctAnswer;
+    private String correctAnswer;
 
     //creates a question object
     //correct answer corresponds to element in the options array in which the answer is correct
-    public Question(String question, String[] options, int correctAnswer) {
+    public Question(String question, String[] options, String correctAnswer) {
         //there should only be four options
         if (options.length != 4)
-            return; // or throw exception
-        //correct answer number should be 0, 1, 2 or 3 as it corresponds to the options array
-        if (correctAnswer > 3 || correctAnswer < 0)
-            return; // or throw exception
+            throw new IllegalArgumentException("There should only be four options");
 
         this.question = question;
         this.options = options;
         this.correctAnswer = correctAnswer;
-    }
-
-    public String getCorrectAnswerString(){
-        return options[correctAnswer];
     }
 
     //getters
@@ -33,9 +26,9 @@ public class Question {
         return options;
     }
 
-    public int getCorrectAnswer() {
-        return correctAnswer;
-    }
+    public String getCorrectAnswer() {
+        return correctAnswer.toLowerCase();
+    } //only checks for lowercase
 
     public String toString(){
         //start question
