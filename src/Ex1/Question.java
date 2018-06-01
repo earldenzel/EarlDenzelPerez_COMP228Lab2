@@ -27,8 +27,8 @@ public class Question {
     }
 
     public String getCorrectAnswer() {
-        return correctAnswer.toLowerCase();
-    } //only checks for lowercase
+        return correctAnswer.toLowerCase(); //only checks for lowercase
+    }
 
     public String toString(){
         //start question

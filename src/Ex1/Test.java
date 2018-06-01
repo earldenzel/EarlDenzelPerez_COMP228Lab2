@@ -48,7 +48,7 @@ public class Test {
 
     //show question and asks for user input, and terminates once the user answers correctly
     private void inputAnswer(Question question){
-        Boolean userAnswersCorrectly;
+        boolean userAnswersCorrectly;
         //set instructions on title
         JFrame frame = new JFrame("Please input the letter of the correct answer");
         //show current question here
@@ -56,7 +56,6 @@ public class Test {
             String answer = JOptionPane.showInputDialog(frame, simulateQuestion(question));
             userAnswersCorrectly = checkAnswer(question, answer);
             generateMessage(userAnswersCorrectly);
-
         } while (!userAnswersCorrectly);
     }
 
@@ -66,11 +65,11 @@ public class Test {
     }
 
     //checks if answer is the same as the answer string
-    private Boolean checkAnswer(Question question, String answer){
+    private boolean checkAnswer(Question question, String answer){
         return (answer.toLowerCase().equals(question.getCorrectAnswer()));
     }
 
-    //generates message depending on whether user's action was right or wrong;
+    //generates message depending on whether user's answer was right or wrong;
     private void generateMessage(Boolean isCorrect){
         SecureRandom randomNumber = new SecureRandom();
         String message = "";
