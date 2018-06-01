@@ -30,6 +30,7 @@ return( "Very good!" );
 * Your main driver class will simply create a Test object and start the test by calling startTest method.
 */
 
+import javax.swing.*;
 import java.security.SecureRandom;
 
 public class Test {
@@ -39,18 +40,28 @@ public class Test {
         this.questions = questions;
     }
 
-    private void startTest(){
+    public void startTest(){
         for (Question question: questions) {
-            simulateQuestion();
-            char answer = inputAnswer();
+            char answer = inputAnswer(simulateQuestion(question));
             generateMessage(question, checkAnswer(question, answer));
         }
     }
 
-    private void simulateQuestion(){
-        //show question here
+    private char inputAnswer(String questionString){
+        //set instructions on title
+        JFrame frame = new JFrame("Please input the character of the correct answer");
 
+        //show current question here
+        String answer = JOptionPane.showInputDialog(frame, questionString);
+
+        return 'a';
     }
+
+    //prints question in a string format
+    private String simulateQuestion(Question question){
+        return String.format("%s", question);
+    }
+
     private Boolean checkAnswer(Question question, char answer){
         //check if answer is correct
 
@@ -88,9 +99,4 @@ public class Test {
         }
         return message;
     }
-
-    private char inputAnswer(){
-        return 'a';
-    }
-
 }

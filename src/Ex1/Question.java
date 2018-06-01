@@ -36,4 +36,16 @@ public class Question {
     public int getCorrectAnswer() {
         return correctAnswer;
     }
+
+    public String toString(){
+        //start question
+        String message = this.getQuestion() + "\n";
+        //retrieve options and show in a nice format
+        String[] options = this.getOptions();
+        for (int i = 0; i < options.length; i++) {
+            //show all options. note that int 65-68 corresponds to char a-d
+            message += String.format("%c) %s%n", (char)(i+65), options[i]);
+        }
+        return message;
+    }
 }
