@@ -1,4 +1,4 @@
-package Ex1;
+package exercise1;
 
 /*
 * Write a Java application that simulates a test.
@@ -36,24 +36,30 @@ import java.security.SecureRandom;
 public class Test {
     private Question[] questions;
 
+    //constructor
     public Test(Question[] questions) {
         this.questions = questions;
     }
 
+    //starts the test
     public void startTest(){
+        JOptionPane.showMessageDialog(null,"Test starts!");
         for (Question question: questions) {
             inputAnswer(question);
         }
+        JOptionPane.showMessageDialog(null,"This is the end of the test!");
     }
 
     //show question and asks for user input, and terminates once the user answers correctly
     private void inputAnswer(Question question){
         boolean userAnswersCorrectly;
-        //set instructions on title
-        JFrame frame = new JFrame("Please input the letter of the correct answer");
         //show current question here
         do {
-            String answer = JOptionPane.showInputDialog(frame, simulateQuestion(question));
+            String answer = JOptionPane.showInputDialog(
+                    null,
+                    simulateQuestion(question),
+                    "Please input the letter of the correct answer",
+                    JOptionPane.PLAIN_MESSAGE);
             userAnswersCorrectly = checkAnswer(question, answer);
             generateMessage(userAnswersCorrectly);
         } while (!userAnswersCorrectly);

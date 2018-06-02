@@ -1,4 +1,4 @@
-package Ex1;
+package exercise1;
 
 public class Question {
     private String question;

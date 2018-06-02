@@ -1,4 +1,4 @@
-package Ex2;
+package exercise2;
 /*
  * Design a Lotto class with one array instance variable to hold three random integer values (from 1 to 9).
  * Include a constructor that randomly populates the array for a lotto object. Also, include a method in the class
@@ -31,8 +31,15 @@ public class Lotto {
         lottoNumbers[2] = randomNumber.nextInt(9) + 1;
     }
 
+    public int retrieveLottoSum(){
+        return lottoNumbers[0] + lottoNumbers[1] + lottoNumbers [2];
+    }
 
-    public int winningLottoNumber(){
-        return lottoNumbers[0] + lottoNumbers[1] + lottoNumbers[2];
+    public String toString(){
+        return String.format("%d + %d + %d = %d",
+                this.getLottoNumbers()[0],
+                this.getLottoNumbers()[1],
+                this.getLottoNumbers()[2],
+                this.retrieveLottoSum());
     }
 }
