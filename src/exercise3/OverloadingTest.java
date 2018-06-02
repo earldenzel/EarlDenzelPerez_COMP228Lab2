@@ -11,6 +11,8 @@ import javax.swing.*;
 public class OverloadingTest {
     public static void main(String[] args) {
         //calling useSkill inside showMessageDialog
+        //the idea is that useSkill uses skills depending on provided parameters.
+        // the intention for each parameter set is announced as a comment before overloaded method
         JOptionPane.showMessageDialog(null,
                 useSkill("Abaddon", "Aphotic Shield"));
         JOptionPane.showMessageDialog(null,
@@ -31,7 +33,7 @@ public class OverloadingTest {
                 hero, enemy, skill, damage);
     }
 
-    //use skill on itself (buff)
+    //use skill on itself (buff/heal)
     public static String useSkill(String hero, String skill){
         return String.format("%s used %s on itself",
                 hero, skill);
