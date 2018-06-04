@@ -35,10 +35,12 @@ import java.security.SecureRandom;
 
 public class Test {
     private Question[] questions;
+    private int score;
 
     //constructor
     public Test(Question[] questions) {
         this.questions = questions;
+        score = 0;
     }
 
     //starts the test
@@ -47,21 +49,31 @@ public class Test {
         for (Question question: questions) {
             inputAnswer(question);
         }
-        JOptionPane.showMessageDialog(null,"This is the end of the test!");
+        JOptionPane.showMessageDialog(null, showGrade());
+    }
+
+    public String showGrade(){
+        return String.format("You answered %d questions correctly out of %d questions. Your grade is %.2f%%",
+                score,
+                questions.length,
+                (double)score*100/(double)questions.length);
     }
 
     //show question and asks for user input, and terminates once the user answers correctly
     private void inputAnswer(Question question){
         boolean userAnswersCorrectly;
+        int attempt = 0;
         //show current question here
         do {
+            attempt++;
             String answer = JOptionPane.showInputDialog(
                     null,
                     simulateQuestion(question),
                     "Please input the letter of the correct answer",
                     JOptionPane.PLAIN_MESSAGE);
             userAnswersCorrectly = checkAnswer(question, answer);
-            generateMessage(userAnswersCorrectly);
+            generateMessage(attempt, userAnswersCorrectly);
+
         } while (!userAnswersCorrectly);
     }
 
@@ -76,7 +88,7 @@ public class Test {
     }
 
     //generates message depending on whether user's answer was right or wrong;
-    private void generateMessage(Boolean isCorrect){
+    private void generateMessage(int attempt, Boolean isCorrect){
         SecureRandom randomNumber = new SecureRandom();
         String message = "";
         switch (randomNumber.nextInt(4) )
@@ -104,6 +116,7 @@ public class Test {
             default:
                 break;
         }
+        if (attempt == 1 && isCorrect) score++;
         JOptionPane.showMessageDialog(null, message);
     }
 }
